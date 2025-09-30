@@ -303,6 +303,113 @@
                 margin: 0 10px;
             }
         }
+
+        /* Interactive button */
+        .magic-btn {
+            background: linear-gradient(135deg, #ffd700, #ff6b6b);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            animation: bounce 2s infinite;
+        }
+
+        .magic-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #f0f;
+            position: fixed;
+            animation: confetti-fall 3s linear forwards;
+            z-index: 999;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Floating emoji */
+        .floating-emoji {
+            position: fixed;
+            font-size: 30px;
+            animation: float-up 4s linear forwards;
+            z-index: 999;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        @keyframes float-up {
+            to {
+                transform: translateY(-100vh);
+                opacity: 0;
+            }
+        }
+
+        /* Click message popup */
+        .popup-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            z-index: 1000;
+            text-align: center;
+            animation: popup 0.5s ease forwards;
+        }
+
+        @keyframes popup {
+            to {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        /* Emoji rain */
+        .emoji-rain {
+            position: fixed;
+            top: -50px;
+            font-size: 25px;
+            animation: rain 3s linear infinite;
+            z-index: 100;
+        }
+
+        @keyframes rain {
+            to {
+                transform: translateY(100vh);
+            }
+        }
     </style>
 </head>
 <body>
@@ -315,68 +422,65 @@
             <h1>Farewell Friends</h1>
             <p>Celebrating the amazing journey of two wonderful colleagues</p>
             <div class="date">Last Day at Office - A New Beginning</div>
+            <button class="magic-btn" onclick="createConfetti()">Click for Magic!</button>
         </div>
 
         <!-- Employee Cards -->
         <div class="employees">
             <!-- Nitisha's Card -->
             <div class="employee-card">
-                <div class="photo-container">
-                    <div class="photo-placeholder">
-                        <img src="nitisha.jpg.jpg" alt="Nitisha" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
+                <div class="photo-container" onclick="showMessage('nitisha')">
+                    <img src="nitisha.jpg.jpg" alt="Nitisha" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;">
                 </div>
                 <h2>Nitisha</h2>
                 <div class="nickname">The Generous Soul</div>
                 
                 <div class="qualities">
-                    <div class="quality-item">
+                    <div class="quality-item" onclick="floatEmoji('✨', event)">
                         <h3>The Gift of Wisdom</h3>
                         <p>Gifted her personal copy of "Ikigai" - a Japanese secret to a long and happy life, showing her selfless nature and desire to inspire others even as she departs.</p>
                     </div>
-                    <div class="quality-item">
+                    <div class="quality-item" onclick="floatEmoji('✨', event)">
                         <h3>Heart Without Hesitation</h3>
                         <p>Never thought twice about sharing knowledge, helping colleagues, or lending a listening ear. Her generosity knew no bounds.</p>
                     </div>
-                    <div class="quality-item">
+                    <div class="quality-item" onclick="floatEmoji('✨', event)">
                         <h3>Mentor & Friend</h3>
                         <p>Always ready with thoughtful advice and genuine care for everyone's growth and wellbeing.</p>
                     </div>
-                    <div class="quality-item">
+                    <div class="quality-item" onclick="floatEmoji('✨', event)">
                         <h3>Legacy of Kindness</h3>
                         <p>Leaves behind a culture of sharing and caring that will inspire the team for years to come.</p>
                     </div>
                 </div>
                 
                 <div class="special-note">
-                    📚 "The book 'Ikigai' she gifted will forever remind us that true purpose comes from giving to others" 
+                    📚 "The book 'Ikigai' she gifted will forever remind us that true purpose comes from giving to others"
                 </div>
             </div>
 
             <!-- Razeena's Card -->
             <div class="employee-card">
-                <div class="photo-container">
-                    <div class="photo-placeholder">
-                        <img src="razeena.jpg.jpg" alt="Razeena" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
+                <div class="photo-container" onclick="showMessage('razeena')">
+                    <img src="razeena.jpg.jpg" alt="Razeena" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;">
                 </div>
                 <h2>Razeena</h2>
                 <div class="nickname">"Zee" - The Humor Maestro</div>
                 
                 <div class="qualities">
-                    <div class="quality-item">
+                    <div class="quality-item" onclick="floatEmoji('✨', event)">
                         <h3>Master of Laughter</h3>
-                        <p>While she didn't give a physical gift, Zee blessed us with something priceless - endless laughter and the ability to find joy even in stressful times.</p>
+                        <p>While he didn't give a physical gift, Zee blessed us with something priceless - endless laughter and the ability to find joy even in stressful times.</p>
                     </div>
-                    <div class="quality-item">
+                    <div class="quality-item" onclick="floatEmoji('✨', event)">
                         <h3>Down to Earth</h3>
                         <p>Despite all achievements, remained humble and approachable. Never let success change the beautiful person within.</p>
                     </div>
-                    <div class="quality-item">
+                    <div class="quality-item" onclick="floatEmoji('✨', event)">
                         <h3>The Mood Lifter</h3>
                         <p>Had the magical ability to turn any bad day around with perfectly timed humor and genuine compassion.</p>
                     </div>
-                    <div class="quality-item">
+                    <div class="quality-item" onclick="floatEmoji('✨', event)">
                         <h3>Authentic & Real</h3>
                         <p>Always kept it 100% real - no pretense, no masks, just pure authenticity that made everyone feel comfortable being themselves.</p>
                     </div>
@@ -392,22 +496,22 @@
         <div class="message-section" style="background: linear-gradient(135deg, rgba(255, 182, 193, 0.2), rgba(255, 255, 255, 0.9)); border: 2px solid rgba(255, 182, 193, 0.3);">
             <h2 style="color: #e91e63;">🍱 The Things We'll Miss Most...</h2>
             <div style="text-align: left; max-width: 800px; margin: 30px auto;">
-                <div class="quality-item" style="background: rgba(255, 182, 193, 0.1); border-left-color: #e91e63;">
+                <div class="quality-item" style="background: rgba(255, 182, 193, 0.1); border-left-color: #e91e63; cursor: pointer;" onclick="floatEmoji('✨', event)">
                     <h3 style="color: #e91e63;">Those Unforgettable Lunches Together</h3>
                     <p><strong>"Hum har lunch miss karenge jo hamne tum dono ke saath kiya hai"</strong> - Every lunch break was more than just food; it was our daily dose of friendship, laughter, and bonding that turned colleagues into family.</p>
                 </div>
                 
-                <div class="quality-item" style="background: rgba(255, 182, 193, 0.1); border-left-color: #e91e63;">
+                <div class="quality-item" style="background: rgba(255, 182, 193, 0.1); border-left-color: #e91e63; cursor: pointer;" onclick="floatEmoji('✨', event)">
                     <h3 style="color: #e91e63;">Nitisha's Special Home-Cooked Treats</h3>
                     <p><strong>"Wo mazedar khana jo Nitisha apni big sister se banwake lati thi"</strong> - We'll forever miss those delicious homemade meals that Nitisha would lovingly bring, made by her elder sister. Each bite was filled with the warmth of home and the care of family.</p>
                 </div>
                 
-                <div class="quality-item" style="background: rgba(255, 182, 193, 0.1); border-left-color: #e91e63;">
+                <div class="quality-item" style="background: rgba(255, 182, 193, 0.1); border-left-color: #e91e63; cursor: pointer;" onclick="floatEmoji('✨', event)">
                     <h3 style="color: #e91e63;">Zee's Perfect Comic Timing</h3>
                     <p><strong>"The silence of Razeena and jab wo muh kholta tha to hume hasa deta tha"</strong> - Zee had this amazing quality of being quietly observant, and when he finally spoke, it was always pure gold! His perfectly timed humor could turn any boring meeting into a comedy show.</p>
                 </div>
                 
-                <div class="quality-item" style="background: rgba(255, 182, 193, 0.1); border-left-color: #e91e63;">
+                <div class="quality-item" style="background: rgba(255, 182, 193, 0.1); border-left-color: #e91e63; cursor: pointer;" onclick="floatEmoji('✨', event)">
                     <h3 style="color: #e91e63;">The Marketing Revision Sessions</h3>
                     <p><strong>"Un dono ke marketing ke task revise karwana bhi miss karenge"</strong> - Those marketing task revision sessions with both of them were legendary! They made even the most complex strategies seem simple and always ensured we were perfectly prepared.</p>
                 </div>
@@ -440,11 +544,15 @@
 
         <!-- Footer -->
         <div class="footer">
-            <p>Made with <span class="heart">❤</span> for two amazing colleagues</p>
+            <p>Made with <span class="heart" onclick="createHearts()">❤️</span> for two amazing colleagues</p>
             <p style="margin-top: 10px;">May your paths be filled with success and happiness</p>
             <p style="margin-top: 20px; opacity: 0.8;">✨ Until we meet again ✨</p>
+            <button class="magic-btn" style="margin-top: 20px;" onclick="startEmojiRain()">Make it Rain!</button>
         </div>
     </div>
+
+    <!-- Popup overlay -->
+    <div class="overlay" id="overlay" onclick="closePopup()"></div>
 
     <script>
         // Generate floating particles
@@ -468,6 +576,115 @@
             setTimeout(createParticle, i * 200);
         }
 
+        // Create confetti effect
+        function createConfetti() {
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#fdcb6e', '#6c5ce7', '#a29bfe'];
+            
+            for(let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * window.innerWidth + 'px';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    document.body.appendChild(confetti);
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 30);
+            }
+
+            // Also create floating stars
+            for(let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.className = 'floating-emoji';
+                    emoji.textContent = '✨';
+                    emoji.style.left = Math.random() * window.innerWidth + 'px';
+                    emoji.style.bottom = '0';
+                    document.body.appendChild(emoji);
+                    setTimeout(() => emoji.remove(), 4000);
+                }, i * 100);
+            }
+        }
+
+        // Create floating emoji on click
+        function floatEmoji(emoji, event) {
+            const floater = document.createElement('div');
+            floater.className = 'floating-emoji';
+            floater.textContent = emoji;
+            floater.style.left = event.clientX + 'px';
+            floater.style.top = event.clientY + 'px';
+            document.body.appendChild(floater);
+            setTimeout(() => floater.remove(), 4000);
+        }
+
+        // Show message when photo is clicked
+        function showMessage(person) {
+            const messages = {
+                nitisha: [
+                    "Nitisha, you're amazing!",
+                    "We'll miss your kindness!",
+                    "Thank you for everything!",
+                    "Your Ikigai gift inspired us all!"
+                ],
+                razeena: [
+                    "Zee, you're the best!",
+                    "Thanks for all the laughs!",
+                    "Your humor brightened our days!",
+                    "Stay awesome, Zee!"
+                ]
+            };
+            
+            const randomMessage = messages[person][Math.floor(Math.random() * messages[person].length)];
+            
+            const popup = document.createElement('div');
+            popup.className = 'popup-message';
+            popup.innerHTML = `
+                <h2 style="color: #667eea; margin-bottom: 15px;">${randomMessage}</h2>
+                <button onclick="closePopup()" style="background: #667eea; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer;">Close</button>
+            `;
+            document.body.appendChild(popup);
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function closePopup() {
+            const popup = document.querySelector('.popup-message');
+            if(popup) popup.remove();
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        // Create hearts effect
+        function createHearts() {
+            for(let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'floating-emoji';
+                    heart.textContent = '❤️';
+                    heart.style.left = (window.innerWidth / 2 - 50 + Math.random() * 100) + 'px';
+                    heart.style.bottom = '100px';
+                    heart.style.color = '#ff4458';
+                    document.body.appendChild(heart);
+                    setTimeout(() => heart.remove(), 4000);
+                }, i * 100);
+            }
+        }
+
+        // Emoji rain
+        function startEmojiRain() {
+            const emojis = ['⭐', '✨', '🌟'];
+            for(let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const rain = document.createElement('div');
+                    rain.className = 'emoji-rain';
+                    rain.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    rain.style.left = Math.random() * window.innerWidth + 'px';
+                    rain.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    rain.style.animationDelay = Math.random() * 2 + 's';
+                    document.body.appendChild(rain);
+                    setTimeout(() => rain.remove(), 5000);
+                }, i * 200);
+            }
+        }
+
         // Add some interactive elements
         document.querySelectorAll('.employee-card').forEach(card => {
             card.addEventListener('mouseenter', function() {
@@ -479,8 +696,23 @@
             });
         });
 
+        // Add click sound effect (visual feedback)
+        document.addEventListener('click', function(e) {
+            if(e.target.tagName === 'BUTTON' || e.target.classList.contains('quality-item')) {
+                e.target.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    e.target.style.transform = 'scale(1)';
+                }, 100);
+            }
+        });
+
+        // Auto emoji rain on load
+        setTimeout(() => {
+            createConfetti();
+        }, 1000);
+
         // Console message
-        console.log('%c Thank you Nitisha & Zee! 🎉', 'font-size: 24px; color: #667eea; font-weight: bold;');
+        console.log('%c Thank you Nitisha & Zee!', 'font-size: 24px; color: #667eea; font-weight: bold;');
         console.log('%c Your presence made our workplace a better place', 'font-size: 14px; color: #764ba2;');
     </script>
 </body>
