@@ -303,87 +303,11 @@
                 margin: 0 10px;
             }
         }
-
-        /* Instructions overlay */
-        .instructions {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            max-width: 300px;
-            z-index: 100;
-            transform: translateX(400px);
-            transition: transform 0.3s ease;
-        }
-
-        .instructions.show {
-            transform: translateX(0);
-        }
-
-        .instructions h3 {
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-
-        .instructions ol {
-            margin-left: 20px;
-            color: #555;
-        }
-
-        .instructions li {
-            margin: 5px 0;
-        }
-
-        .toggle-instructions {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #667eea;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            z-index: 101;
-            transition: background 0.3s ease;
-        }
-
-        .toggle-instructions:hover {
-            background: #764ba2;
-        }
     </style>
 </head>
 <body>
     <!-- Animated particles background -->
     <div class="particles" id="particles"></div>
-
-    <!-- Instructions toggle button -->
-    <button class="toggle-instructions" onclick="toggleInstructions()">📖 Instructions</button>
-
-    <!-- Instructions panel -->
-    <div class="instructions" id="instructions">
-        <h3>How to Use This Page:</h3>
-        <ol>
-            <li>Save this file as "index.html"</li>
-            <li>To add photos: Replace the photo placeholder divs with:<br>
-                <code>&lt;img src="nitisha.jpg.png" alt="Nitisha"&gt;</code></li>
-            <li>Place photo files in the same folder as index.html</li>
-            <li>Upload to GitHub Pages:
-                <ul style="margin-left: 20px; margin-top: 5px;">
-                    <li>Create new GitHub repository</li>
-                    <li>Upload index.html and photos</li>
-                    <li>Go to Settings → Pages</li>
-                    <li>Select "Deploy from branch"</li>
-                    <li>Choose main branch</li>
-                    <li>Your site will be live!</li>
-                </ul>
-            </li>
-            <li>Share the GitHub Pages URL with everyone!</li>
-        </ol>
-    </div>
 
     <div class="container">
         <!-- Header -->
@@ -399,8 +323,7 @@
             <div class="employee-card">
                 <div class="photo-container">
                     <div class="photo-placeholder">
-                        <!-- Replace this div with: <img src="nitisha.jpg.jpg" alt="Nitisha" style="width: 100%; height: 100%; object-fit: cover;"> -->
-                        Click Instructions to add Nitisha's photo here
+                        <img src="nitisha.jpg" alt="Nitisha" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
                 <h2>Nitisha</h2>
@@ -434,8 +357,7 @@
             <div class="employee-card">
                 <div class="photo-container">
                     <div class="photo-placeholder">
-                        <!-- Replace this div with: <img src="razeena.jpg.jpg" alt="Razeena" style="width: 100%; height: 100%; object-fit: cover;"> -->
-                        Click Instructions to add Zee's photo here
+                        <img src="razeena.jpg" alt="Razeena" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
                 <h2>Razeena</h2>
@@ -544,12 +466,6 @@
         // Initial particles
         for(let i = 0; i < 10; i++) {
             setTimeout(createParticle, i * 200);
-        }
-
-        // Toggle instructions panel
-        function toggleInstructions() {
-            const panel = document.getElementById('instructions');
-            panel.classList.toggle('show');
         }
 
         // Add some interactive elements
