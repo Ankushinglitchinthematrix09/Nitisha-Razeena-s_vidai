@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farewell - The Last Day at Office</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Main container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            color: white;
+            padding: 50px 0;
+            animation: fadeInDown 1s ease;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #fff, #ffd700);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+            margin-top: 10px;
+        }
+
+        .date {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin-top: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Employee cards */
+        .employees {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            margin: 50px 0;
+        }
+
+        .employee-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transform: translateY(0);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .employee-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c);
+            background-size: 300% 100%;
+            animation: gradient 3s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .employee-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        .photo-container {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid #667eea;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            position: relative;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .employee-card h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .nickname {
+            text-align: center;
+            color: #667eea;
+            font-style: italic;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .qualities {
+            margin: 20px 0;
+        }
+
+        .quality-item {
+            background: linear-gradient(135deg, #667eea15, #764ba215);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            animation: slideInLeft 1s ease;
+        }
+
+        .quality-item h3 {
+            color: #667eea;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .quality-item h3::before {
+            content: '✨';
+            margin-right: 10px;
+        }
+
+        .special-note {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #333;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Message section */
+        .message-section {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 50px 0;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .message-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+
+        .message-section p {
+            color: #555;
+            line-height: 1.8;
+            font-size: 1.1em;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            color: white;
+            padding: 30px 0;
+            font-size: 1.1em;
+        }
+
+        .heart {
+            color: #ff4458;
+            animation: heartbeat 1.5s ease infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+            .employees {
+                grid-template-columns: 1fr;
+            }
+            .employee-card {
+                margin: 0 10px;
+            }
+        }
+
+        /* Instructions overlay */
+        .instructions {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 300px;
+            z-index: 100;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+
+        .instructions.show {
+            transform: translateX(0);
+        }
+
+        .instructions h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+            color: #555;
+        }
+
+        .instructions li {
+            margin: 5px 0;
+        }
+
+        .toggle-instructions {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            z-index: 101;
+            transition: background 0.3s ease;
+        }
+
+        .toggle-instructions:hover {
+            background: #764ba2;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated particles background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Instructions toggle button -->
+    <button class="toggle-instructions" onclick="toggleInstructions()">📖 Instructions</button>
+
+    <!-- Instructions panel -->
+    <div class="instructions" id="instructions">
+        <h3>How to Use This Page:</h3>
+        <ol>
+            <li>Save this file as "index.html"</li>
+            <li>To add photos: Replace the photo placeholder divs with:<br>
+                <code>&lt;img src="nitisha.jpg" alt="Nitisha"&gt;</code></li>
+            <li>Place photo files in the same folder as index.html</li>
+            <li>Upload to GitHub Pages:
+                <ul style="margin-left: 20px; margin-top: 5px;">
+                    <li>Create new GitHub repository</li>
+                    <li>Upload index.html and photos</li>
+                    <li>Go to Settings → Pages</li>
+                    <li>Select "Deploy from branch"</li>
+                    <li>Choose main branch</li>
+                    <li>Your site will be live!</li>
+                </ul>
+            </li>
+            <li>Share the GitHub Pages URL with everyone!</li>
+        </ol>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Farewell Friends</h1>
+            <p>Celebrating the amazing journey of two wonderful colleagues</p>
+            <div class="date">Last Day at Office - A New Beginning</div>
+        </div>
+
+        <!-- Employee Cards -->
+        <div class="employees">
+            <!-- Nitisha's Card -->
+            <div class="employee-card">
+                <div class="photo-container">
+                    <div class="photo-placeholder">
+                        <!-- Replace this div with: <img src="nitisha.jpg" alt="Nitisha" style="width: 100%; height: 100%; object-fit: cover;"> -->
+                        Click Instructions to add Nitisha's photo here
+                    </div>
+                </div>
+                <h2>Nitisha</h2>
+                <div class="nickname">The Generous Soul</div>
+                
+                <div class="qualities">
+                    <div class="quality-item">
+                        <h3>The Gift of Wisdom</h3>
+                        <p>Gifted her personal copy of "Ikigai" - a Japanese secret to a long and happy life, showing her selfless nature and desire to inspire others even as she departs.</p>
+                    </div>
+                    <div class="quality-item">
+                        <h3>Heart Without Hesitation</h3>
+                        <p>Never thought twice about sharing knowledge, helping colleagues, or lending a listening ear. Her generosity knew no bounds.</p>
+                    </div>
+                    <div class="quality-item">
+                        <h3>Mentor & Friend</h3>
+                        <p>Always ready with thoughtful advice and genuine care for everyone's growth and wellbeing.</p>
+                    </div>
+                    <div class="quality-item">
+                        <h3>Legacy of Kindness</h3>
+                        <p>Leaves behind a culture of sharing and caring that will inspire the team for years to come.</p>
+                    </div>
+                </div>
+                
+                <div class="special-note">
+                    📚 "The book 'Ikigai' she gifted will forever remind us that true purpose comes from giving to others" 
+                </div>
+            </div>
+
+            <!-- Razeena's Card -->
+            <div class="employee-card">
+                <div class="photo-container">
+                    <div class="photo-placeholder">
+                        <!-- Replace this div with: <img src="razeena.jpg" alt="Razeena" style="width: 100%; height: 100%; object-fit: cover;"> -->
+                        Click Instructions to add Zee's photo here
+                    </div>
+                </div>
+                <h2>Razeena</h2>
+                <div class="nickname">"Zee" - The Humor Maestro</div>
+                
+                <div class="qualities">
+                    <div class="quality-item">
+                        <h3>Master of Laughter</h3>
+                        <p>While she didn't give a physical gift, Zee blessed us with something priceless - endless laughter and the ability to find joy even in stressful times.</p>
+                    </div>
+                    <div class="quality-item">
+                        <h3>Down to Earth</h3>
+                        <p>Despite all achievements, remained humble and approachable. Never let success change the beautiful person within.</p>
+                    </div>
+                    <div class="quality-item">
+                        <h3>The Mood Lifter</h3>
+                        <p>Had the magical ability to turn any bad day around with perfectly timed humor and genuine compassion.</p>
+                    </div>
+                    <div class="quality-item">
+                        <h3>Authentic & Real</h3>
+                        <p>Always kept it 100% real - no pretense, no masks, just pure authenticity that made everyone feel comfortable being themselves.</p>
+                    </div>
+                </div>
+                
+                <div class="special-note">
+                    😄 "The gift of laughter and lightness that Zee brought to our workplace is irreplaceable"
+                </div>
+            </div>
+        </div>
+
+        <!-- Message Section -->
+        <div class="message-section">
+            <h2>As You Both Embark on New Adventures...</h2>
+            <p>
+                Some people come into our work lives and make them brighter, warmer, and infinitely more meaningful. 
+                Nitisha and Zee, you both have been those rare gems who turned colleagues into family and work into joy.
+            </p>
+            <p style="margin-top: 20px;">
+                <strong>Nitisha</strong>, your selfless gift of "Ikigai" symbolizes everything you represent - 
+                the Japanese philosophy of finding one's purpose. You helped us all find purpose in our daily work through your kindness.
+            </p>
+            <p style="margin-top: 20px;">
+                <strong>Zee</strong>, your humor wasn't just entertainment - it was therapy, it was connection, 
+                it was the glue that held us together during tough times. Your down-to-earth nature reminded us daily that success is best worn with humility.
+            </p>
+            <p style="margin-top: 30px; font-size: 1.3em; color: #667eea;">
+                Though this is goodbye in the office, the memories, lessons, and laughter you've given us will echo in these halls forever.
+                Here's to new beginnings, endless possibilities, and the beautiful journey ahead!
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Made with <span class="heart">❤</span> for two amazing colleagues</p>
+            <p style="margin-top: 10px;">May your paths be filled with success and happiness</p>
+            <p style="margin-top: 20px; opacity: 0.8;">✨ Until we meet again ✨</p>
+        </div>
+    </div>
+
+    <script>
+        // Generate floating particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.width = particle.style.height = Math.random() * 20 + 10 + 'px';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = Math.random() * 10 + 15 + 's';
+            document.getElementById('particles').appendChild(particle);
+            
+            setTimeout(() => particle.remove(), 25000);
+        }
+
+        // Create particles periodically
+        setInterval(createParticle, 1000);
+
+        // Initial particles
+        for(let i = 0; i < 10; i++) {
+            setTimeout(createParticle, i * 200);
+        }
+
+        // Toggle instructions panel
+        function toggleInstructions() {
+            const panel = document.getElementById('instructions');
+            panel.classList.toggle('show');
+        }
+
+        // Add some interactive elements
+        document.querySelectorAll('.employee-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Console message
+        console.log('%c Thank you Nitisha & Zee! 🎉', 'font-size: 24px; color: #667eea; font-weight: bold;');
+        console.log('%c Your presence made our workplace a better place', 'font-size: 14px; color: #764ba2;');
+    </script>
+</body>
+</html>
